@@ -1,5 +1,172 @@
-﻿<h3>RegistroCliente</h3>
+﻿@page "/RegistroCliente"
+@inject ClienteBLL ClienteBLL
 
+
+<EditForm Model="Cliente" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator />
+
+    <div class="container">
+        <div class="card shadow-lg">
+            <div class=" card-header">
+                <h3>Registro de Cliente</h3>
+            </div>
+            <div class=" card-body">
+                @*ClienteID*@
+                <div class="mb-3">
+                    <InputNumber class="col col-4" @bind-Value="Cliente.ClienteId" />
+                    <ValidationMessage For="@(() => Cliente.ClienteId)" />
+                    <button type="button" class="btn btn-sm btn-primary" @onclick="Buscar"> <i class="oi oi-magnifying-glass" /> </button>
+                </div>
+                @*Nombre*@
+                <div class=" mb-3">
+                    <label class="form-group"> Nombre </label>
+                    <div class="input-group">
+                        <InputText class="form-control" @bind-Value="Cliente.Nombre" placeholder="Coloque una Nombre" />
+                        <ValidationMessage For="@(() =>Cliente.Nombre)" />
+                    </div>
+                </div>
+
+                @*Telefono*@
+                <div class=" mb-3">
+                    <label class="form-group"> Tel&eacute;fono </label>
+                    <div class="input-group">
+                        <InputNumber class="form-control" @bind-Value="Cliente.Telefono" placeholder="Coloque un Teléfono" required />
+                        <ValidationMessage For="@(() =>Cliente.Telefono)" />
+                    </div>
+                </div>
+
+                @*Cedula*@
+                <div class=" mb-3">
+                    <label class="form-group"> C&eacute;dula </label>
+                    <div class="input-group">
+                        <InputNumber typeof="number" class="form-control" @bind-Value="Cliente.Cedula" placeholder="Coloque la cédula" required />
+                        <ValidationMessage For="@(() =>Cliente.Cedula)" />
+                    </div>
+                </div>
+
+                @*Rnc*@
+                <div class=" mb-3">
+                    <label class="form-group"> Rnc </label>
+                    <div class="input-group">
+                        <InputNumber class="form-control" @bind-Value="Cliente.Rnc" placeholder="Coloque la Rnc" required />
+                        <ValidationMessage For="@(() =>Cliente.Rnc)" />
+                    </div>
+                </div>
+
+                @*Email*@
+                <div class=" mb-3">
+                    <label class="form-group"> Email </label>
+                    <div class="input-group">
+                        <InputText class="form-control" @bind-Value="Cliente.Email" placeholder="Coloque un Email" />
+                        <ValidationMessage For="@(() =>Cliente.Email)" />
+                    </div>
+                </div>
+
+                @*Direccion*@
+                <div class=" mb-3">
+                    <label class="form-group"> Direcci&oacute;n </label>
+                    <div class="input-group">
+                        <InputText class="form-control" @bind-Value="Cliente.Direccion" placeholder="Coloque una Dirección" />
+                        <ValidationMessage For="@(() =>Cliente.Direccion)" />
+                    </div>
+                </div>
+
+                @*Botones*@
+                <div class="card-footer d-flex justify-content-center">
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-primary" @onclick="Nuevo"> <i class="oi oi-file" /> Nuevo </button>
+                        <button type="submit" class="btn btn-success" @onclick="Guardar"> <i class=" oi oi-document " /> Guardar </button>
+                        <button type="button" class="btn btn-danger" @onclick="Eliminar"> <i class="oi oi-trash" /> Eliminar  </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</EditForm>
+ 
 @code {
+    public Cliente Cliente { get; set; } = new Cliente();
+
+    protected override void OnInitialized() { }
+    public void Buscar()
+    {
+        var prioridadEncontrado = ClienteBLL.Buscar(Cliente.ClienteId);
+        if (prioridadEncontrado != null)
+        {
+            Cliente = prioridadEncontrado;
+        }
+        else
+        {
+            /*notificationService.ShowNotification(
+            titulo: "error de busqueda",
+            mensaje: "Registro no encontrado",
+            NotificationSeverity.Error);*/
+        }
+
+    }
+    public void Nuevo()
+    {
+        this.Cliente = new Cliente();
+    }
+    public void Guardar()
+    {
+        if (!Validar())
+        {
+            /*notificationService.ShowNotification(
+            titulo: "Validacion",
+            mensaje: "Error revise los campos",
+            NotificationSeverity.Error);*/
+            return;
+        }
+
+        var guardo = ClienteBLL.Guardar(this.Cliente);
+        if (guardo)
+        {
+            /*notificationService.ShowNotification(
+            titulo: "Exito",
+            mensaje: "Guardado correctamente",
+            NotificationSeverity.Success);*/
+            Nuevo();
+        }
+        else
+        {
+            /*notificationService.ShowNotification(
+            titulo: "Error",
+            mensaje: "Ocurrio un error y no fue posible guardar",
+            NotificationSeverity.Error);*/
+        }
+    }
+    public void Eliminar()
+    {
+        Buscar();
+        if (ClienteBLL.Eliminar(this.Cliente))
+        {
+            /*notificationService.ShowNotification(
+            titulo: "Exito",
+            mensaje: "Eliminado con Exito",
+            NotificationSeverity.Success);*/
+            Nuevo();
+        }
+        else
+        {
+            /*notificationService.ShowNotification(
+            titulo: "Error",
+            mensaje: "Ocurrio un error y no fue posible eliminar",
+            NotificationSeverity.Error);*/
+        }
+    }
+    private bool Validar()
+    {
+        bool confirmar = true;
+
+        if (ClienteBLL.Validar(Cliente.Nombre, Cliente.Rnc))
+    {
+            confirmar = false;
+
+        }
+
+        return confirmar;
+    }
+
 
 }

@@ -1,13 +1,23 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using RegistroClienteConsulta.Data;
+using Microsoft.EntityFrameworkCore;
+using RegistroClienteConsulta.DAL;
+using RegistroClienteConsulta.BLL;
+using RegistroClienteConsulta.Model;
+using Microsoft.AspNetCore.Identity;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
+
+//DbContext de la base de datos
+builder.Services.AddDbContext<Context>(options =>
+options.UseSqlite(builder.Configuration.GetConnectionString("DBConnection"))
+);
+builder.Services.AddScoped<ClienteBLL>();
 
 var app = builder.Build();
 
@@ -18,6 +28,8 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+
 
 app.UseHttpsRedirection();
 
