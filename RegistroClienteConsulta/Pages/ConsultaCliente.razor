@@ -1,7 +1,105 @@
 ﻿@page "/ConsultaCliente"
-<h3>ConsultaCliente</h3>
+@inject ClienteBLL ClienteBLL
 
+<EditForm Model="Clientes">
+
+    <div class="card">
+
+        <div class="card-header">
+            <h3> Consulta de Cliente </h3>
+        </div>
+
+        <div class="card-body">
+
+            <form>
+                <div class="input-group d-flex align-items-end">
+
+                    <InputSelect class="form-control col-2" @bind-Value="filtro">
+                        <option value="1">ClienteId</option>
+                        <option value="2">Nombre</option>
+                        <option value="3">Telefono</option>
+                    </InputSelect>
+
+                    <div class = "flex-fill mx-2">
+
+                        <div class="input-group">
+                            <label  class="input-group-text" > Busqueda </label>
+                            <InputText class="form-control" @bind-Value="Criterio"/>
+                        </div>
+
+                    </div>
+
+                    <button type="button" class="btn btn-sm-10 btn-primary" @onclick="Buscar"> <span class="oi oi-magnifying-glass" ></span> Buscar </button>
+                </div>
+            </form>
+            
+        </div>
+
+        <table class="table table-bordered align-items-center" >
+
+            <thead class="thead">
+                <tr class="table">
+
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Tel&eacute;fono</th>
+                    <th>C&eacute;dula</th>
+                    <th>RNC</th>
+                    <th>Email</th>
+                    <th>Direcci&oacute;n</th>
+                    
+
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Clientes)
+                {
+                    <tr>
+                        <td>@item.ClienteId</td>
+                        <td>@item.Nombre</td>
+                        <td>@item.Telefono</td>
+                        <td>@item.Cedula</td>
+                        <td>@item.Rnc</td>
+                        <td>@item.Email</td>
+                        <td>@item.Direccion</td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+
+    </div>
+
+</EditForm>
 
 @code {
+    
+    public string filtro { get; set; }
 
+    public string Criterio { get; set; }
+
+    public List<Cliente> Clientes { get; set; } = new List<Cliente>();
+
+    private void Buscar()
+    {
+        if(Criterio!=null)
+        {
+            switch(filtro)
+            {
+                case "1":
+                    Clientes = ClienteBLL.GetList(e => e.ClienteId == int.Parse(Criterio));
+                    break;
+                case "2":
+                    Clientes = ClienteBLL.GetList(e => e.Nombre.ToLower().Contains(Criterio.ToLower()));
+                    break;
+                case "3":
+                    Clientes = ClienteBLL.GetList(e => e.Telefono.ToString().Contains(Criterio));
+                    break;
+            }
+        }
+        else
+            Clientes = ClienteBLL.GetList(p => true);
+    }
 }
+

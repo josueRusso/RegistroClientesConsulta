@@ -22,29 +22,23 @@ namespace RegistroClienteConsulta.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Cedula")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<double>("Cedula")
+                        .HasColumnType("REAL");
 
                     b.Property<string>("Direccion")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Nombre")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Rnc")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<double>("Rnc")
+                        .HasColumnType("REAL");
 
-                    b.Property<string>("Telefono")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<double>("Telefono")
+                        .HasColumnType("REAL");
 
                     b.HasKey("ClienteId");
 

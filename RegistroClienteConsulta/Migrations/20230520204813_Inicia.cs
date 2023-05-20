@@ -16,12 +16,12 @@ namespace RegistroClienteConsulta.Migrations
                 {
                     ClienteId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Nombre = table.Column<string>(type: "TEXT", nullable: false),
-                    Telefono = table.Column<string>(type: "TEXT", nullable: false),
-                    Cedula = table.Column<string>(type: "TEXT", nullable: false),
-                    Rnc = table.Column<string>(type: "TEXT", nullable: false),
-                    Email = table.Column<string>(type: "TEXT", nullable: false),
-                    Direccion = table.Column<string>(type: "TEXT", nullable: false)
+                    Nombre = table.Column<string>(type: "TEXT", nullable: true),
+                    Telefono = table.Column<double>(type: "REAL", nullable: false),
+                    Cedula = table.Column<double>(type: "REAL", nullable: false),
+                    Rnc = table.Column<double>(type: "REAL", nullable: false),
+                    Email = table.Column<string>(type: "TEXT", nullable: true),
+                    Direccion = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {

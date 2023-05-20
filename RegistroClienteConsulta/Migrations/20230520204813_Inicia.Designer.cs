@@ -10,7 +10,7 @@ using RegistroClienteConsulta.DAL;
 namespace RegistroClienteConsulta.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230520193915_Inicia")]
+    [Migration("20230520204813_Inicia")]
     partial class Inicia
     {
         /// <inheritdoc />
@@ -25,29 +25,23 @@ namespace RegistroClienteConsulta.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Cedula")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<double>("Cedula")
+                        .HasColumnType("REAL");
 
                     b.Property<string>("Direccion")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Nombre")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Rnc")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<double>("Rnc")
+                        .HasColumnType("REAL");
 
-                    b.Property<string>("Telefono")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<double>("Telefono")
+                        .HasColumnType("REAL");
 
                     b.HasKey("ClienteId");
 

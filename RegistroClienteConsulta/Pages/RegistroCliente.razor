@@ -39,7 +39,7 @@
                 <div class=" mb-3">
                     <label class="form-group"> C&eacute;dula </label>
                     <div class="input-group">
-                        <InputNumber typeof="number" class="form-control" @bind-Value="Cliente.Cedula" placeholder="Coloque la cédula" required />
+                        <InputNumber maxlength="11" minlength="11" class="form-control" @bind-Value="Cliente.Cedula" placeholder="Coloque la cédula" required />
                         <ValidationMessage For="@(() =>Cliente.Cedula)" />
                     </div>
                 </div>
