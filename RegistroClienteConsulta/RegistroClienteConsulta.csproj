@@ -12,11 +12,17 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Radzen.Blazor" Version="4.11.1" />
     <PackageReference Include="TicketManagement.BusinessLogic" Version="1.0.15" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Data\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Shared\RegistroClienteConsulta.csproj" />
+    <None Include="Shared\RegistroClienteConsulta.csproj.user" />
   </ItemGroup>
 
 </Project>

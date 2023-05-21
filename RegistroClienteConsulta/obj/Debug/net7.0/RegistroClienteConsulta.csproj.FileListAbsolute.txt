@@ -103,3 +103,5 @@ C:\Aplicada_1\RegistroClienteConsulta\RegistroClienteConsulta\obj\Debug\net7.0\r
 C:\Aplicada_1\RegistroClienteConsulta\RegistroClienteConsulta\obj\Debug\net7.0\RegistroClienteConsulta.pdb
 C:\Aplicada_1\RegistroClienteConsulta\RegistroClienteConsulta\obj\Debug\net7.0\RegistroClienteConsulta.genruntimeconfig.cache
 C:\Aplicada_1\RegistroClienteConsulta\RegistroClienteConsulta\obj\Debug\net7.0\ref\RegistroClienteConsulta.dll
+C:\Aplicada_1\RegistroClienteConsulta\RegistroClienteConsulta\bin\Debug\net7.0\Radzen.Blazor.dll
+C:\Aplicada_1\RegistroClienteConsulta\RegistroClienteConsulta\bin\Debug\net7.0\System.Linq.Dynamic.Core.dll

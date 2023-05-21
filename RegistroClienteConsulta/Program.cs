@@ -5,7 +5,8 @@ using RegistroClienteConsulta.DAL;
 using RegistroClienteConsulta.BLL;
 using RegistroClienteConsulta.Model;
 using Microsoft.AspNetCore.Identity;
-
+using Radzen;
+using RegistroClienteConsulta.Extensors;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,7 @@ builder.Services.AddDbContext<Context>(options =>
 options.UseSqlite(builder.Configuration.GetConnectionString("DBConnection"))
 );
 builder.Services.AddScoped<ClienteBLL>();
+builder.Services.AddScoped<NotificationService>();
 
 var app = builder.Build();
 

@@ -50,6 +50,10 @@
               "target": "Package",
               "version": "[7.0.5, )"
             },
+            "Radzen.Blazor": {
+              "target": "Package",
+              "version": "[4.11.1, )"
+            },
             "TicketManagement.BusinessLogic": {
               "target": "Package",
               "version": "[1.0.15, )"
