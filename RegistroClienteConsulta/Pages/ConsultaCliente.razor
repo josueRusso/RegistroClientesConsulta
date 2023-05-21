@@ -63,23 +63,40 @@
                         <td>@item.Rnc</td>
                         <td>@item.Email</td>
                         <td>@item.Direccion</td>
+                        <td><a class="btn btn-outline-primary" href="RegistroCliente/@item.ClienteId">Ver</a></td>
                     </tr>
                 }
             </tbody>
 
         </table>
+        <div class="card-footer">
+            <div class="form-row justify-content-sm-between" aria-orientation="vertical">
+                <div class="col-3">
+                    <label for="CantidaRegistro" class="col-form-label"><strong>Filas</strong>&nbsp;</label>
+                    <input id="CantidaRegistro" @bind-value="@Conteo" disabled class="form-control" />
+                </div>
+            </div>
+        </div>
 
     </div>
 
 </EditForm>
 
 @code {
-    
+
     public string filtro { get; set; }
 
     public string Criterio { get; set; }
 
+    public int Conteo { get; set; } = 0;
+
     public List<Cliente> Clientes { get; set; } = new List<Cliente>();
+
+    protected override void OnInitialized()
+    {
+        Clientes = ClienteBLL.GetList(p => true);
+        Conteo = Clientes.Count();
+    }
 
     private void Buscar()
     {
@@ -100,6 +117,9 @@
         }
         else
             Clientes = ClienteBLL.GetList(p => true);
+        Conteo = Clientes.Count();
     }
+
+
 }
 

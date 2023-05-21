@@ -1,5 +1,9 @@
 ﻿@page "/RegistroCliente"
+@page "/RegistroCliente/{ClienteId:int}"
 @inject ClienteBLL ClienteBLL
+
+
+
 
 
 <EditForm Model="Cliente" OnValidSubmit="Guardar">
@@ -48,7 +52,7 @@
                 <div class=" mb-3">
                     <label class="form-group"> Rnc </label>
                     <div class="input-group">
-                        <InputNumber class="form-control" @bind-Value="Cliente.Rnc" placeholder="Coloque la Rnc" required />
+                        <InputNumber  class="form-control" @bind-Value="Cliente.Rnc" placeholder="Coloque la Rnc"  required  />
                         <ValidationMessage For="@(() =>Cliente.Rnc)" />
                     </div>
                 </div>
@@ -87,7 +91,16 @@
 @code {
     public Cliente Cliente { get; set; } = new Cliente();
 
-    protected override void OnInitialized() { }
+    [Parameter]
+    public int ClienteId { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Nuevo();
+        Cliente.ClienteId = ClienteId;
+        Buscar();
+    }
+
     public void Buscar()
     {
         var prioridadEncontrado = ClienteBLL.Buscar(Cliente.ClienteId);
@@ -104,10 +117,12 @@
         }
 
     }
+
     public void Nuevo()
     {
         this.Cliente = new Cliente();
     }
+
     public void Guardar()
     {
         if (!Validar())
@@ -136,6 +151,7 @@
             NotificationSeverity.Error);*/
         }
     }
+
     public void Eliminar()
     {
         Buscar();
@@ -155,6 +171,7 @@
             NotificationSeverity.Error);*/
         }
     }
+
     private bool Validar()
     {
         bool confirmar = true;
