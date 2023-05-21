@@ -54,7 +54,7 @@
                 <div class=" mb-3">
                     <label class="form-group"> Rnc </label>
                     <div class="input-group">
-                        <InputNumber  class="form-control" @bind-Value="Cliente.Rnc" placeholder="Coloque la Rnc"  required  />
+                        <InputNumber maxRange="9" minRange="9" class="form-control" @bind-Value="Cliente.Rnc" placeholder="Coloque la Rnc" required />
                         <ValidationMessage For="@(() =>Cliente.Rnc)" />
                     </div>
                 </div>
@@ -99,16 +99,21 @@
     protected override void OnInitialized()
     {
         Nuevo();
-        Cliente.ClienteId = ClienteId;
-        Buscar();
+        if (ClienteId > 0)
+        {
+            Cliente.ClienteId = ClienteId;
+            Buscar();
+        }
+   
     }
 
     public void Buscar()
     {
-        var prioridadEncontrado = ClienteBLL.Buscar(Cliente.ClienteId);
-        if (prioridadEncontrado != null)
+ 
+        var ClienteBuscar = ClienteBLL.Buscar(Cliente.ClienteId);
+        if (ClienteBuscar != null)
         {
-            Cliente = prioridadEncontrado;
+            Cliente = ClienteBuscar;
         }
         else
         {
@@ -157,6 +162,7 @@
     public void Eliminar()
     {
         Buscar();
+      
         if (ClienteBLL.Eliminar(this.Cliente))
         {
             notificationService.ShowNotification(

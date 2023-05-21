@@ -5,10 +5,18 @@ namespace RegistroClienteConsulta.Model
 {
     public class Cliente
     {
-        [Key] public int ClienteId { get; set; }    
+        [Key] public int ClienteId { get; set; }
+
+        [Required(ErrorMessage = "Es obligatorio introducir el nombre del cliente")]
         public string? Nombre { get; set;}
         public double Telefono { get; set; }
-        public double Cedula { get; set; } 
+
+        [Required(ErrorMessage = "Es obligatorio introducir la cédula del cliente")]
+        [Range(minimum: 11, maximum: 11, ErrorMessage = "Debe estar en un rango permitido")]
+        public double Cedula { get; set; }
+
+        [Required(ErrorMessage = "Es obligatorio introducir el RNC del cliente")]
+        [Range(minimum: 9, maximum: 9, ErrorMessage = "Debe estar en un rango permitido")]
         public double Rnc { get; set; }
         public string? Email { get; set; }
         public string? Direccion { get; set; }
