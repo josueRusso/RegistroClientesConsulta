@@ -5,9 +5,6 @@
 
 <PageTitle>Registro</PageTitle>
 
-
-
-
 <EditForm Model="Cliente" OnValidSubmit="Guardar">
     <DataAnnotationsValidator />
 
@@ -54,7 +51,7 @@
                 <div class=" mb-3">
                     <label class="form-group"> Rnc </label>
                     <div class="input-group">
-                        <InputNumber maxRange="9" minRange="9" class="form-control" @bind-Value="Cliente.Rnc" placeholder="Coloque la Rnc" required />
+                        <InputNumber maxlength="9" minlength="9" class="form-control" @bind-Value="Cliente.Rnc" placeholder="Coloque la Rnc" required />
                         <ValidationMessage For="@(() =>Cliente.Rnc)" />
                     </div>
                 </div>
