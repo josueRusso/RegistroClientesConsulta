@@ -1,6 +1,6 @@
 ﻿@page "/RegistroCliente"
 @page "/RegistroCliente/{ClienteId:int}"
-@inject ClienteBLL ClienteBLL
+@inject ClientesBLL ClienteBLL
 @inject NotificationService notificationService
 
 <PageTitle>Registro</PageTitle>
@@ -88,7 +88,7 @@
 </EditForm>
  
 @code {
-    public Cliente Cliente { get; set; } = new Cliente();
+    public Clientes Cliente { get; set; } = new Clientes();
 
     [Parameter]
     public int ClienteId { get; set; }
@@ -124,7 +124,7 @@
 
     public void Nuevo()
     {
-        this.Cliente = new Cliente();
+        this.Cliente = new Clientes();
     }
 
     public void Guardar()

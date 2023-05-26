@@ -18,7 +18,7 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddDbContext<Context>(options =>
 options.UseSqlite(builder.Configuration.GetConnectionString("DBConnection"))
 );
-builder.Services.AddScoped<ClienteBLL>();
+builder.Services.AddScoped<ClientesBLL>();
 builder.Services.AddScoped<NotificationService>();
 
 var app = builder.Build();

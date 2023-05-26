@@ -1,5 +1,5 @@
 ﻿@page "/ConsultaCliente"
-@inject ClienteBLL ClienteBLL
+@inject ClientesBLL ClienteBLL
 
 <PageTitle>Consulta</PageTitle>
 
@@ -92,7 +92,7 @@
 
     public int Conteo { get; set; } = 0;
 
-    public List<Cliente> Clientes { get; set; } = new List<Cliente>();
+    public List<Clientes> Clientes { get; set; } = new List<Clientes>();
 
     protected override void OnInitialized()
     {

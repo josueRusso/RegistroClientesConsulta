@@ -6,7 +6,7 @@ namespace RegistroClienteConsulta.DAL
 {
     public class Context : DbContext
     {
-        public DbSet<Cliente> Cliente { get; set; }
+        public DbSet<Clientes> Cliente { get; set; }
 
         public Context(DbContextOptions<Context> options) : base(options) { }
 
