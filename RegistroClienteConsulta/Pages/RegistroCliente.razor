@@ -35,7 +35,7 @@
                 <div class=" mb-3">
                     <label class="form-group"> Tel&eacute;fono </label>
                     <div class="input-group">
-                        <InputNumber class="form-control" @bind-Value="Cliente.Telefono" placeholder="Coloque un Teléfono" required />
+                        <InputText class="form-control" @bind-Value="Cliente.Telefono" placeholder="Coloque un Teléfono" required />
                         <ValidationMessage For="@(() =>Cliente.Telefono)" />
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                 <div class=" mb-3">
                     <label class="form-group"> C&eacute;dula </label>
                     <div class="input-group">
-                        <InputNumber maxlength="11" minlength="11" class="form-control" @bind-Value="Cliente.Cedula" placeholder="Coloque la cédula" required />
+                        <InputText maxlength="11" minlength="11" class="form-control" @bind-Value="Cliente.Cedula" placeholder="Coloque la cédula" required />
                         <ValidationMessage For="@(() =>Cliente.Cedula)" />
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                 <div class=" mb-3">
                     <label class="form-group"> Rnc </label>
                     <div class="input-group">
-                        <InputNumber maxlength="9" minlength="9" class="form-control" @bind-Value="Cliente.Rnc" placeholder="Coloque la Rnc" required />
+                        <InputText maxlength="9" minlength="9" class="form-control" @bind-Value="Cliente.Rnc" placeholder="Coloque la Rnc" required />
                         <ValidationMessage For="@(() =>Cliente.Rnc)" />
                     </div>
                 </div>
