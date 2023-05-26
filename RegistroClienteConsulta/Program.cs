@@ -18,9 +18,14 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddDbContext<Context>(options =>
 options.UseSqlite(builder.Configuration.GetConnectionString("DBConnection"))
 );
-builder.Services.AddScoped<ClientesBLL>();
+//Injecciones-------------------------------------------------------------
 builder.Services.AddScoped<NotificationService>();
 
+builder.Services.AddScoped<ClientesBLL>();
+
+builder.Services.AddScoped<TicketsBLL>();
+
+//-----------------------------------------------------------------------
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
