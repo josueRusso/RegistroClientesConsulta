@@ -107,7 +107,7 @@
 
     public void Buscar()
     {
- 
+
         var ClienteBuscar = ClienteBLL.Buscar(Cliente.ClienteId);
         if (ClienteBuscar != null)
         {
@@ -159,7 +159,7 @@
     public void Eliminar()
     {
         Buscar();
-      
+
         if (ClienteBLL.Eliminar(this.Cliente))
         {
             notificationService.ShowNotification(
@@ -179,13 +179,6 @@
 
     private bool Validar()
     {
-        bool confirmar = true;
-
-        if (ClienteBLL.Validar(Cliente.Nombre, Cliente.Rnc))
-    {
-            confirmar = false;
-
-        }
-        return confirmar;
+        return ClienteBLL.Validar(Cliente.Nombre, Cliente.Rnc);
     }
 }
