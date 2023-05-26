@@ -3,9 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RegistroClienteConsulta.Model
 {
-    public class Cliente
+    public class Clientes
     {
-        [Key] public int ClienteId { get; set; }
+        [Key] 
+        public int ClienteId { get; set; }
 
         [Required(ErrorMessage = "Es obligatorio introducir el nombre del cliente")]
         public string? Nombre { get; set;}

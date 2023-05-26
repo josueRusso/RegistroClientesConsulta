@@ -11,10 +11,10 @@ using System.Diagnostics.Contracts;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace RegistroClienteConsulta.BLL
 {
-    public class ClienteBLL
+    public class ClientesBLL
     {
         private Context _context;
-        public ClienteBLL(Context Context)
+        public ClientesBLL(Context Context)
         {
             _context = Context;
         }
