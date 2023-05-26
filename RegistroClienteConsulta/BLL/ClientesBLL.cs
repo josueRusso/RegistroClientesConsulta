@@ -77,7 +77,7 @@ namespace RegistroClienteConsulta.BLL
             bool confirmar = false;
             try
             {
-                confirmar = _context.Cliente.Any(e => e.Nombre.ToLower() == nombre.ToLower()  || e.Rnc == Rnc );
+                confirmar = _context.Cliente.Any(e => e.Nombre.ToLower() == nombre.ToLower() || e.Rnc == Rnc);
             }
             catch (Exception)
             {
@@ -87,4 +87,3 @@ namespace RegistroClienteConsulta.BLL
         }
     }
 }
-

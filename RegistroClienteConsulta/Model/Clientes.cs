@@ -5,11 +5,11 @@ namespace RegistroClienteConsulta.Model
 {
     public class Clientes
     {
-        [Key] 
+        [Key]
         public int ClienteId { get; set; }
 
         [Required(ErrorMessage = "Es obligatorio introducir el nombre del cliente")]
-        public string? Nombre { get; set;}
+        public string? Nombre { get; set; }
 
         public string? Telefono { get; set; }
 
