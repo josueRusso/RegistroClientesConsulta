@@ -5,7 +5,7 @@ namespace RegistroClienteConsulta.Model
     public class Tickets
     {
         [Key]
-        public int TicketIdId { get; set; }
+        public int TicketId { get; set; }
 
         [Range(minimum: 0, maximum: 50, ErrorMessage = "Debe estar en un rango permitido")]
         public int Fecha { get; set; }
