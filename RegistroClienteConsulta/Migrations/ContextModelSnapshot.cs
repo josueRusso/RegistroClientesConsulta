@@ -68,6 +68,21 @@ namespace RegistroClienteConsulta.Migrations
                     b.ToTable("Prioridad");
                 });
 
+            modelBuilder.Entity("RegistroClienteConsulta.Model.Sistemas", b =>
+                {
+                    b.Property<int>("SistemaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("SistemaId");
+
+                    b.ToTable("Sistemas");
+                });
+
             modelBuilder.Entity("RegistroClienteConsulta.Model.Tickets", b =>
                 {
                     b.Property<int>("TicketId")
