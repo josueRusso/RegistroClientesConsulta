@@ -17,26 +17,42 @@
 
                 @*TicketId*@
                 <div class="mb-3">
+                    <label class="form-group"> TicketId </label>
+                    <div class="input-group">
                     <InputNumber class="col col-4" @bind-Value="Ticket.TicketId" />
                     <ValidationMessage For="@(() => Ticket.TicketId)" />
                     <button type="button" class="btn btn-sm btn-primary" @onclick="Buscar"> <i class="oi oi-magnifying-glass" /> </button>
+                    </div>
                 </div>
              
                 @*ClienteId*@
                 <div class="mb-3">
+                    <label class="form-group"> ClienteId </label>
+                    <div class="input-group">
                     <InputNumber class="col col-4" @bind-Value="Ticket.ClienteId" />
                     <ValidationMessage For="@(() => Ticket.ClienteId)" />
+                    
+                    </div>
                 </div>
 
                 @*SistemaId*@
                 <div class="mb-3">
+                    <label class="form-group"> SistemaId </label>
+                    <div class="input-group">
                     <InputNumber class="col col-4" @bind-Value="Ticket.SistemaId" />
                     <ValidationMessage For="@(() => Ticket.SistemaId)" />
+                    
+                    </div>
+                </div>
 
                 @*PrioridadId*@
                 <div class="mb-3">
+                     <label class="form-group"> PrioridadId </label>
+                     <div class="input-group">
                     <InputNumber class="col col-4" @bind-Value="Ticket.PrioridadId" />
                     <ValidationMessage For="@(() => Ticket.PrioridadId)" />
+                  
+                    </div>
                 </div>
 
                 @*SolicitadoPor*@
@@ -68,7 +84,7 @@
 
                   @* Fecha *@
                     <div Class="form-group mt-3">
-                        <label class="row-text"> Fecha </label>
+                        <label class="row-text"> Dias Compromiso </label>
                         <div class="input-group">
                             <input type="date" @bind-value="Ticket.FechaT" />
                             <ValidationMessage For="@(() => Ticket.FechaT)" />
@@ -182,5 +198,6 @@
     {
 
         return TicketsBLL.Validar(Ticket.TicketId);
+
     }
 }

@@ -1,5 +1,126 @@
-﻿<h3>ConsultaTickets</h3>
+﻿@page "/ConsultaTickets"
+@inject TicketsBLL TicketsBLL
+
+<PageTitle>Tickets</PageTitle>
+
+<EditForm Model="Tickets">
+
+    <div class="card">
+
+        <div class="card-header">
+            <h3> Consulta de Tickets </h3>
+        </div>
+
+        <div class="card-body">
+
+            <form>
+                <div class="input-group d-flex align-items-end">
+
+                    <InputSelect class="form-control col-2" @bind-Value="filtro">
+                        <option value="1">TicketId</option>
+                        <option value="2">ClienteId</option>
+                        <option value="3">SistemaId</option>
+                    </InputSelect>
+
+                    <div class = "flex-fill mx-2">
+
+                        <div class="input-group">
+                            <label  class="input-group-text" > Busqueda </label>
+                            <InputText class="form-control" @bind-Value="Criterio"/>
+                        </div>
+
+                    </div>
+
+                    <button type="button" class="btn btn-sm-10 btn-primary" @onclick="Buscar"> <span class="oi oi-magnifying-glass" ></span> Buscar </button>
+                </div>
+            </form>
+            
+        </div>
+
+        <table class="table table-bordered align-items-center" >
+
+            <thead class="thead">
+                <tr class="table">
+
+                    <th>Id</th>
+                    <th>Fecha</th>
+                    <th>ClienteId</th>
+                    <th>SistemaId</th>
+                    <th>PrioridadId</th>
+                    <th>SolicitadoPor</th>
+                    <th>Asunto</th>
+                    <th>Descripcion</th>
+                    
+
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Tickets)
+                {
+                    <tr>
+                        <td>@item.TicketId</td>
+                        <td>@item.FechaT</td>
+                        <td>@item.ClienteId</td>
+                        <td>@item.SistemaId</td>
+                        <td>@item.PrioridadId</td>
+                        <td>@item.SolicitadoPor</td>
+                        <td>@item.Asunto</td>
+                        <td>@item.Descripcion</td>
+                        <td><a class="btn btn-outline-primary" href="RegistroCliente/@item.TicketId">Ver</a></td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+        <div class="card-footer">
+            <div class="form-row justify-content-sm-between" aria-orientation="vertical">
+                <div class="col-3">
+                    <label for="CantidaRegistro" class="col-form-label"><strong>Filas</strong>&nbsp;</label>
+                    <input id="CantidaRegistro" @bind-value="@Conteo" disabled class="form-control" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</EditForm>
+
 
 @code {
+    public string filtro { get; set; }
 
+    public string Criterio { get; set; }
+
+    public int Conteo { get; set; } = 0;
+
+    public List<Tickets> Tickets { get; set; } = new List<Tickets>();
+
+    protected override void OnInitialized()
+    {
+        Tickets = TicketsBLL.GetList(p => true);
+        Conteo = Tickets.Count();
+    }
+
+    private void Buscar()
+    {
+        if(Criterio!=null)
+        {
+            switch(filtro)
+            {
+                case "1":
+                    Tickets = TicketsBLL.GetList(e => e.TicketId == int.Parse(Criterio));
+                    break;
+                case "2":
+                    Tickets = TicketsBLL.GetList(e => e.ClienteId == int.Parse(Criterio));
+                    break;
+                case "3":
+                    Tickets = TicketsBLL.GetList(e => e.SistemaId == int.Parse(Criterio));
+                    break;
+            }
+        }
+        else
+            Tickets = TicketsBLL.GetList(p => true);
+        Conteo = Tickets.Count();
+    }
 }
