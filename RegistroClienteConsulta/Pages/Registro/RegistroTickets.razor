@@ -1,6 +1,7 @@
 ﻿@page "/RegistroTickets"
 @page "/RegistroTickets/{TicketId:int}"
 @inject TicketsBLL TicketsBLL
+@inject ClientesBLL ClienteBLL
 @inject NotificationService notificationService
 
 <PageTitle>Registro Tickets</PageTitle>
@@ -26,14 +27,21 @@
                 </div>
              
                 @*ClienteId*@
-                <div class="mb-3">
+                 <InputSelect class="form-control col-2" @bind-Value="filtro">
+                    @foreach (var item in Clientes)
+                    {
+                        <option value="item.ClienteId" >@item.Nombre </option>
+                    }
+                 </InputSelect>
+
+                @*<div class="mb-3">
                     <label class="form-group"> ClienteId </label>
                     <div class="input-group">
                     <InputNumber class="col col-4" @bind-Value="Ticket.ClienteId" />
                     <ValidationMessage For="@(() => Ticket.ClienteId)" />
                     
                     </div>
-                </div>
+                </div>*@
 
                 @*SistemaId*@
                 <div class="mb-3">
@@ -106,8 +114,11 @@
 
 
 @code {
+    public string filtro { get; set; }
 
-     public Tickets Ticket { get; set; } = new Tickets();
+    public Tickets Ticket { get; set; } = new Tickets();
+
+    public List<Clientes> Clientes { get; set; } = new List<Clientes>();
 
     [Parameter]
     public int TicketId { get; set; }
@@ -120,6 +131,7 @@
             Ticket.TicketId = TicketId;
             Buscar();
         }
+        Clientes = ClienteBLL.GetList(p => true);
     }
 
     public void Buscar()

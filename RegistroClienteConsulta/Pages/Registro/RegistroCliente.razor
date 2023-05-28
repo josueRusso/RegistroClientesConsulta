@@ -129,7 +129,7 @@
 
     public void Guardar()
     {
-        if (!Validar())
+        if (Validar())
         {
             notificationService.ShowNotification(
             titulo: "Validacion",
