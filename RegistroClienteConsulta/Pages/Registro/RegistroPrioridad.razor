@@ -1,0 +1,130 @@
+﻿@page "/RegistroPrioridad"
+@inject PrioridadBLL PrioridadBLL
+@inject NotificationService notificationService
+
+
+
+<EditForm Model="Prioridad" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator />
+    
+    <div class="container">
+        <div class="card shadow-lg">
+            <div class=" card-header">
+                <h3>Registro de Prioridades</h3>
+            </div>
+            <div class=" card-body">
+
+                @*PrioridadID*@
+                <div class="mb-3">
+                    <InputNumber class="col col-4" @bind-Value="Prioridad.PrioridadId" />
+                    <ValidationMessage For="@(() => Prioridad.PrioridadId)" />
+                    <button type="button" class="btn btn-sm btn-primary" @onclick="Buscar"> <i class="oi oi-magnifying-glass"/> </button>
+                </div>
+
+                    @*Nombre*@
+                <div class=" mb-3">
+                    <label class="form-group"> Descripci&oacute;n </label>
+                    <div class="input-group">
+                        <InputText class="form-control" @bind-Value="Prioridad.Descripcion" placeholder="Coloque una descripción" />
+                        <ValidationMessage For="@(() =>Prioridad.Descripcion)" />
+                </div>
+
+                    @* Fecha *@
+                    <div Class="form-group mt-3">
+                        <label class="row-text"> Dias Compromiso </label>
+                        <div class="input-group">
+                            <input type="date" @bind-value="Prioridad.DiasCompromiso" />
+                            <ValidationMessage For="@(() => Prioridad.DiasCompromiso)" />
+                        </div>
+                    </div>
+            </div>
+            <div class="card-footer d-flex justify-content-center">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-primary" @onclick="Nuevo"> <i class="oi oi-file"/> Nuevo </button>
+                    <button type="submit" class="btn btn-success" @onclick="Guardar"> <i class=" oi oi-document " /> Guardar </button>
+                    <button type="button" class="btn btn-danger" @onclick="Eliminar"> <i class="oi oi-trash"/> Eliminar  </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</EditForm>
+
+
+
+@code {
+    public Prioridades Prioridad { get; set; } = new Prioridades();
+
+    protected override void OnInitialized() { }
+    public void Buscar()
+    {
+        var prioridadEncontrado = PrioridadBLL.Buscar(Prioridad.PrioridadId);
+        if(prioridadEncontrado != null)
+        {
+            Prioridad = prioridadEncontrado;
+        }
+        else
+        {
+            notificationService.ShowNotification(
+            titulo: "error de busqueda",
+            mensaje: "Registro no encontrado",
+            NotificationSeverity.Error);
+        }
+
+    }
+    public void Nuevo()
+    {
+        this.Prioridad = new Prioridades();    
+    }
+    public void Guardar()
+    {
+        if(Validar())
+        {
+            notificationService.ShowNotification(
+            titulo: "Validacion",
+            mensaje: "Error revise los campos",
+            NotificationSeverity.Error);
+            return;
+        }
+
+        var guardo = PrioridadBLL.Guardar(this.Prioridad);
+        if (guardo)
+        {
+            notificationService.ShowNotification(
+            titulo: "Exito",
+            mensaje: "Guardado correctamente",
+            NotificationSeverity.Success);
+            Nuevo();
+        }
+        else
+        {
+            notificationService.ShowNotification(
+            titulo: "Error",
+            mensaje: "Ocurrio un error y no fue posible guardar",
+            NotificationSeverity.Error);
+        }
+    }
+    public void Eliminar()
+    {
+        Buscar();
+        if (PrioridadBLL.Eliminar(this.Prioridad))
+        {
+            notificationService.ShowNotification(
+            titulo: "Exito",
+            mensaje: "Eliminado con Exito",
+            NotificationSeverity.Success);
+            Nuevo();
+        }
+        else
+        {
+            notificationService.ShowNotification(
+            titulo: "Error",
+            mensaje: "Ocurrio un error y no fue posible eliminar",
+            NotificationSeverity.Error);
+        }
+    }
+    private bool Validar()
+    {
+        return PrioridadBLL.Validar(Prioridad.Descripcion);
+    }
+}

@@ -22,39 +22,39 @@ namespace RegistroClienteConsulta.BLL
         {
             return _context.Prioridad.Any(s => s.PrioridadId == PrioridadId);
         }
-        private bool Insertar(Prioridad prioridad)
+        private bool Insertar(Prioridades prioridad)
         {
             _context.Prioridad.Add(prioridad);
             int verificar = _context.SaveChanges();
             return verificar > 0;
         }
 
-        public bool Modificar(Prioridad prioridad)
+        public bool Modificar(Prioridades prioridad)
         {
             _context.Update(prioridad);
             int verificar = _context.SaveChanges();
             return verificar > 0;
         }
-        public bool Guardar(Prioridad prioridad)
+        public bool Guardar(Prioridades prioridad)
         {
             if (!Existe(prioridad.PrioridadId))
                 return Insertar(prioridad);
             else 
                 return Modificar(prioridad);
         }
-        public bool Eliminar(Prioridad prioridad)
+        public bool Eliminar(Prioridades prioridad)
         {
             _context.Prioridad.Remove(prioridad);
             int verificar = _context.SaveChanges();
             return verificar > 0;    
         }
-        public Prioridad? Buscar(int PrioridadId)
+        public Prioridades? Buscar(int PrioridadId)
         {
             return _context.Prioridad
                 .AsNoTracking()
                 .FirstOrDefault(s => s.PrioridadId == PrioridadId);
         }
-        public List<Prioridad> GetList(Expression<Func<Prioridad, bool >> Criterio)
+        public List<Prioridades> GetList(Expression<Func<Prioridades, bool >> Criterio)
         {
             return _context.Prioridad
                 .Where(Criterio)

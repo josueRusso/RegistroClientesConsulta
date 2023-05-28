@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RegistroClienteConsulta.Model
 {
-    public class Prioridad
+    public class Prioridades
     {
         [Key] 
         public int PrioridadId { get; set; }

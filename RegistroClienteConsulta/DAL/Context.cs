@@ -10,7 +10,7 @@ namespace RegistroClienteConsulta.DAL
 
         public DbSet<Tickets> Tickets { get; set; }
 
-        public DbSet<Prioridad> Prioridad { get; set; }   
+        public DbSet<Prioridades> Prioridad { get; set; }   
 
         public Context(DbContextOptions<Context> options) : base(options) { }
 
