@@ -61,12 +61,12 @@ namespace RegistroClienteConsulta.BLL
                 .AsNoTracking()
                 .ToList();
         }
-        public bool Validar(string? descripcion)
+        public bool Validar(string descripcion)
         {
             bool confirmar = false;
             try
             {
-                confirmar = _context.Prioridad.Any(e => e.Descripcion.ToLower() == descripcion.ToLower());
+                confirmar = _context.Prioridad.Any(e => e.Descripcion == descripcion);
             }
             catch (Exception)
             {
