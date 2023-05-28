@@ -8,8 +8,7 @@ namespace RegistroClienteConsulta.Model
         [Key]
         public int TicketId { get; set; }
 
-        [Range(minimum: 0, maximum: 50, ErrorMessage = "Debe estar en un rango permitido")]
-        public string? Fecha { get; set; }
+        public DateTime FechaT { get; set; } = DateTime.Now;
 
         public int ClienteId { get; set; }
 

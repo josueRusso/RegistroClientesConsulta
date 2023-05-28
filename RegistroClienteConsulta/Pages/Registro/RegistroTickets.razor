@@ -21,37 +21,31 @@
                     <ValidationMessage For="@(() => Ticket.TicketId)" />
                     <button type="button" class="btn btn-sm btn-primary" @onclick="Buscar"> <i class="oi oi-magnifying-glass" /> </button>
                 </div>
-
-                @*Fecha*@
-               <div class=" mb-3">
-                    <label class="form-group"> Fecha </label>
-                    <div class="input-group">
-                        <InputText class="form-control" @bind-Value="Ticket.Fecha" placeholder="Coloque una Fecha" />
-                        <ValidationMessage For="@(() =>Ticket.Fecha)" />
-                    </div>
-                </div>
-
+             
                 @*ClienteId*@
                 <div class="mb-3">
                     <InputNumber class="col col-4" @bind-Value="Ticket.ClienteId" />
                     <ValidationMessage For="@(() => Ticket.ClienteId)" />
+                    <button type="button" class="btn btn-sm btn-primary" @onclick="Buscar"> <i class="oi oi-magnifying-glass" /> </button>
                 </div>
 
                 @*SistemaId*@
                 <div class="mb-3">
                     <InputNumber class="col col-4" @bind-Value="Ticket.SistemaId" />
                     <ValidationMessage For="@(() => Ticket.SistemaId)" />
+                    <button type="button" class="btn btn-sm btn-primary" @onclick="Buscar"> <i class="oi oi-magnifying-glass" /> </button>
                 </div>
 
                 @*PrioridadId*@
                 <div class="mb-3">
                     <InputNumber class="col col-4" @bind-Value="Ticket.PrioridadId" />
                     <ValidationMessage For="@(() => Ticket.PrioridadId)" />
+                    <button type="button" class="btn btn-sm btn-primary" @onclick="Buscar"> <i class="oi oi-magnifying-glass" /> </button>
                 </div>
 
                 @*SolicitadoPor*@
                 <div class=" mb-3">
-                    <label class="form-group"> Solicitado Por </label>
+                    <label class="form-group"> SolicitadoPor </label>
                     <div class="input-group">
                         <InputText class="form-control" @bind-Value="Ticket.SolicitadoPor" placeholder="Coloque por quien fue solicitado" />
                         <ValidationMessage For="@(() =>Ticket.SolicitadoPor)" />
@@ -76,6 +70,15 @@
                     </div>
                 </div>
 
+                  @* Fecha *@
+                    <div Class="form-group mt-3">
+                        <label class="row-text"> Fecha </label>
+                        <div class="input-group">
+                            <input type="date" @bind-value="Ticket.FechaT" />
+                            <ValidationMessage For="@(() => Ticket.FechaT)" />
+                        </div>
+                    </div>
+
                 @*Botones*@
                 <div class="card-footer d-flex justify-content-center">
                     <div class="btn-group" role="group">
@@ -87,12 +90,12 @@
             </div>
         </div>
     </div>
-
 </EditForm>
 
 
 @code {
-    public Tickets Ticket { get; set; } = new Tickets();
+
+     public Tickets Ticket { get; set; } = new Tickets();
 
     [Parameter]
     public int TicketId { get; set; }
@@ -183,7 +186,5 @@
     {
 
         return TicketsBLL.Validar(Ticket.TicketId);
-
     }
-
 }
