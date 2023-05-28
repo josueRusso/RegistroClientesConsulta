@@ -27,29 +27,23 @@
                 </div>
              
                 @*ClienteId*@
-                 <InputSelect class="form-control col-2" @bind-Value="filtro">
-                    @foreach (var item in Clientes)
-                    {
-                        <option value="item.ClienteId" >@item.Nombre </option>
-                    }
-                 </InputSelect>
-
-                @*<div class="mb-3">
+                <div class="mb-3">
                     <label class="form-group"> ClienteId </label>
-                    <div class="input-group">
-                    <InputNumber class="col col-4" @bind-Value="Ticket.ClienteId" />
-                    <ValidationMessage For="@(() => Ticket.ClienteId)" />
-                    
-                    </div>
-                </div>*@
-
+                        <InputSelect class="form-control col-2" @bind-Value="Ticket.ClienteId">
+                            <option selected>Seleccione un cliente</option>
+                            @foreach (var item in Clientes)
+                            {
+                                   <option value= "@item.ClienteId" > @item.Nombre </option>
+                            }
+                        </InputSelect>
+                </div>
+                 
                 @*SistemaId*@
                 <div class="mb-3">
                     <label class="form-group"> SistemaId </label>
                     <div class="input-group">
                     <InputNumber class="col col-4" @bind-Value="Ticket.SistemaId" />
-                    <ValidationMessage For="@(() => Ticket.SistemaId)" />
-                    
+                    <ValidationMessage For="@(() => Ticket.SistemaId)" />                    
                     </div>
                 </div>
 
@@ -59,13 +53,12 @@
                      <div class="input-group">
                     <InputNumber class="col col-4" @bind-Value="Ticket.PrioridadId" />
                     <ValidationMessage For="@(() => Ticket.PrioridadId)" />
-                  
                     </div>
                 </div>
 
                 @*SolicitadoPor*@
                 <div class=" mb-3">
-                    <label class="form-group"> SolicitadoPor </label>
+                    <label class="form-group"> Solicitado Por </label>
                     <div class="input-group">
                         <InputText class="form-control" @bind-Value="Ticket.SolicitadoPor" placeholder="Coloque por quien fue solicitado" />
                         <ValidationMessage For="@(() =>Ticket.SolicitadoPor)" />
@@ -114,7 +107,6 @@
 
 
 @code {
-    public string filtro { get; set; }
 
     public Tickets Ticket { get; set; } = new Tickets();
 
@@ -158,7 +150,7 @@
 
     public void Guardar()
     {
-        if (!Validar())
+        if (Validar())
         {
             notificationService.ShowNotification(
             titulo: "Validacion",
@@ -209,7 +201,7 @@
     private bool Validar()
     {
 
-        return TicketsBLL.Validar(Ticket.TicketId);
+        return TicketsBLL.Validar(Ticket.Descripcion);
 
     }
 }

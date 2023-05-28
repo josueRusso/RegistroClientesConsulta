@@ -71,13 +71,13 @@ namespace RegistroClienteConsulta.BLL
                 .ToList();
         }
 
-        public bool Validar(int ticketId)
+        public bool Validar(string descripcion)
         {
 
             bool confirmar = false;
             try
             {
-                confirmar = _context.Tickets.Any(e => e.TicketId == ticketId );
+                confirmar = _context.Tickets.Any(e => e.Descripcion == descripcion );
             }
             catch (Exception)
             {

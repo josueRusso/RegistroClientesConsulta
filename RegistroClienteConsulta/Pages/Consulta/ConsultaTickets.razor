@@ -1,5 +1,6 @@
 ﻿@page "/ConsultaTickets"
 @inject TicketsBLL TicketsBLL
+@inject ClientesBLL ClienteBLL
 
 <PageTitle>Tickets</PageTitle>
 
@@ -67,7 +68,7 @@
                         <td>@item.SolicitadoPor</td>
                         <td>@item.Asunto</td>
                         <td>@item.Descripcion</td>
-                        <td><a class="btn btn-outline-primary" href="RegistroCliente/@item.TicketId">Ver</a></td>
+                        <td><a class="btn btn-outline-primary" href="RegistroTickets/@item.TicketId">Ver</a></td>
                     </tr>
                 }
             </tbody>
