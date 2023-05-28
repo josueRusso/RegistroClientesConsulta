@@ -26,21 +26,17 @@
                 <div class="mb-3">
                     <InputNumber class="col col-4" @bind-Value="Ticket.ClienteId" />
                     <ValidationMessage For="@(() => Ticket.ClienteId)" />
-                    <button type="button" class="btn btn-sm btn-primary" @onclick="Buscar"> <i class="oi oi-magnifying-glass" /> </button>
                 </div>
 
                 @*SistemaId*@
                 <div class="mb-3">
                     <InputNumber class="col col-4" @bind-Value="Ticket.SistemaId" />
                     <ValidationMessage For="@(() => Ticket.SistemaId)" />
-                    <button type="button" class="btn btn-sm btn-primary" @onclick="Buscar"> <i class="oi oi-magnifying-glass" /> </button>
-                </div>
 
                 @*PrioridadId*@
                 <div class="mb-3">
                     <InputNumber class="col col-4" @bind-Value="Ticket.PrioridadId" />
                     <ValidationMessage For="@(() => Ticket.PrioridadId)" />
-                    <button type="button" class="btn btn-sm btn-primary" @onclick="Buscar"> <i class="oi oi-magnifying-glass" /> </button>
                 </div>
 
                 @*SolicitadoPor*@
