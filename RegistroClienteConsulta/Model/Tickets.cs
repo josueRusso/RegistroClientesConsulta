@@ -9,7 +9,7 @@ namespace RegistroClienteConsulta.Model
         public int TicketId { get; set; }
 
         [Range(minimum: 0, maximum: 50, ErrorMessage = "Debe estar en un rango permitido")]
-        public int Fecha { get; set; }
+        public string? Fecha { get; set; }
 
         public int ClienteId { get; set; }
 

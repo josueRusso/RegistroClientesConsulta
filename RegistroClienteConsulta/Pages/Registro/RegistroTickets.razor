@@ -1,5 +1,189 @@
-﻿<h3>RegistroTickets</h3>
+﻿@page "/RegistroTickets"
+@page "/RegistroTickets/{TicketId:int}"
+@inject TicketsBLL TicketsBLL
+@inject NotificationService notificationService
+
+<PageTitle>Registro Tickets</PageTitle>
+
+<EditForm Model="Ticket" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator />
+
+    <div class="container">
+        <div class="card shadow-lg">
+            <div class=" card-header">
+                <h3>Registro de Tickets</h3>
+            </div>
+            <div class=" card-body">
+
+                @*TicketId*@
+                <div class="mb-3">
+                    <InputNumber class="col col-4" @bind-Value="Ticket.TicketId" />
+                    <ValidationMessage For="@(() => Ticket.TicketId)" />
+                    <button type="button" class="btn btn-sm btn-primary" @onclick="Buscar"> <i class="oi oi-magnifying-glass" /> </button>
+                </div>
+
+                @*Fecha*@
+               <div class=" mb-3">
+                    <label class="form-group"> Fecha </label>
+                    <div class="input-group">
+                        <InputText class="form-control" @bind-Value="Ticket.Fecha" placeholder="Coloque una Fecha" />
+                        <ValidationMessage For="@(() =>Ticket.Fecha)" />
+                    </div>
+                </div>
+
+                @*ClienteId*@
+                <div class="mb-3">
+                    <InputNumber class="col col-4" @bind-Value="Ticket.ClienteId" />
+                    <ValidationMessage For="@(() => Ticket.ClienteId)" />
+                </div>
+
+                @*SistemaId*@
+                <div class="mb-3">
+                    <InputNumber class="col col-4" @bind-Value="Ticket.SistemaId" />
+                    <ValidationMessage For="@(() => Ticket.SistemaId)" />
+                </div>
+
+                @*PrioridadId*@
+                <div class="mb-3">
+                    <InputNumber class="col col-4" @bind-Value="Ticket.PrioridadId" />
+                    <ValidationMessage For="@(() => Ticket.PrioridadId)" />
+                </div>
+
+                @*SolicitadoPor*@
+                <div class=" mb-3">
+                    <label class="form-group"> SolicitadoPor </label>
+                    <div class="input-group">
+                        <InputText class="form-control" @bind-Value="Ticket.SolicitadoPor" placeholder="Coloque por quien fue solicitado" />
+                        <ValidationMessage For="@(() =>Ticket.SolicitadoPor)" />
+                    </div>
+                </div>
+
+                @*Asunto*@
+                <div class=" mb-3">
+                    <label class="form-group"> Asunto </label>
+                    <div class="input-group">
+                        <InputText class="form-control" @bind-Value="Ticket.Asunto" placeholder="Coloque un Asunto" />
+                        <ValidationMessage For="@(() =>Ticket.Asunto)" />
+                    </div>
+                </div>
+
+                @*Descripcion*@
+                <div class=" mb-3">
+                    <label class="form-group"> Descripcion </label>
+                    <div class="input-group">
+                        <InputText class="form-control" @bind-Value="Ticket.Descripcion" placeholder="Coloque una Descripcion" />
+                        <ValidationMessage For="@(() =>Ticket.Descripcion)" />
+                    </div>
+                </div>
+
+                @*Botones*@
+                <div class="card-footer d-flex justify-content-center">
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-primary" @onclick="Nuevo"> <i class="oi oi-file" /> Nuevo </button>
+                        <button type="submit" class="btn btn-success" @onclick="Guardar"> <i class=" oi oi-document " /> Guardar </button>
+                        <button type="button" class="btn btn-danger" @onclick="Eliminar"> <i class="oi oi-trash" /> Eliminar  </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</EditForm>
+
 
 @code {
+    public Tickets Ticket { get; set; } = new Tickets();
+
+    [Parameter]
+    public int TicketId { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Nuevo();
+        if (TicketId > 0)
+        {
+            Ticket.TicketId = TicketId;
+            Buscar();
+        }
+    }
+
+    public void Buscar()
+    {
+
+        var TicketsBuscar = TicketsBLL.Buscar(Ticket.TicketId);
+        if (TicketsBuscar != null)
+        {
+            Ticket = TicketsBuscar;
+        }
+        else
+        {
+            notificationService.ShowNotification(
+            titulo: "error de busqueda",
+            mensaje: "Registro no encontrado",
+            NotificationSeverity.Error);
+        }
+    }
+
+    public void Nuevo()
+    {
+        this.Ticket = new Tickets();
+    }
+
+    public void Guardar()
+    {
+        if (!Validar())
+        {
+            notificationService.ShowNotification(
+            titulo: "Validacion",
+            mensaje: "Error revise los campos",
+            NotificationSeverity.Error);
+            return;
+        }
+
+        var guardo = TicketsBLL.Guardar(this.Ticket);
+        if (guardo)
+        {
+            notificationService.ShowNotification(
+            titulo: "Exito",
+            mensaje: "Guardado correctamente",
+            NotificationSeverity.Success);
+            Nuevo();
+        }
+        else
+        {
+            notificationService.ShowNotification(
+            titulo: "Error",
+            mensaje: "Ocurrio un error y no fue posible guardar",
+            NotificationSeverity.Error);
+        }
+    }
+
+    public void Eliminar()
+    {
+        Buscar();
+
+        if (TicketsBLL.Eliminar(this.Ticket))
+        {
+            notificationService.ShowNotification(
+            titulo: "Exito",
+            mensaje: "Eliminado con Exito",
+            NotificationSeverity.Success);
+            Nuevo();
+        }
+        else
+        {
+            notificationService.ShowNotification(
+            titulo: "Error",
+            mensaje: "Ocurrio un error y no fue posible eliminar",
+            NotificationSeverity.Error);
+        }
+    }
+
+    private bool Validar()
+    {
+
+        return TicketsBLL.Validar(Ticket.TicketId);
+
+    }
 
 }
