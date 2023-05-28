@@ -25,6 +25,8 @@ builder.Services.AddScoped<ClientesBLL>();
 
 builder.Services.AddScoped<TicketsBLL>();
 
+builder.Services.AddScoped<PrioridadBLL>();
+
 //-----------------------------------------------------------------------
 var app = builder.Build();
 
