@@ -22,34 +22,34 @@
                 <div class="mb-3">
                     <label class="form-group"> TicketId </label>
                     <div class="input-group">
-                    <InputNumber class="col col-4" @bind-Value="Ticket.TicketId" />
-                    <ValidationMessage For="@(() => Ticket.TicketId)" />
-                    <button type="button" class="btn btn-sm btn-primary" @onclick="Buscar"> <i class="oi oi-magnifying-glass" /> </button>
+                        <InputNumber class="col col-4" @bind-Value="Ticket.TicketId" />
+                        <ValidationMessage For="@(() => Ticket.TicketId)" />
+                        <button type="button" class="btn btn-sm btn-primary" @onclick="Buscar"> <i class="oi oi-magnifying-glass" /> </button>
                     </div>
                 </div>
-             
+
                 @*ClienteId*@
                 <div class="mb-3">
                     <label class="form-group"> ClienteId </label>
-                        <InputSelect class="form-control col-2" @bind-Value="Ticket.ClienteId">
-                            <option selected>Seleccione un cliente</option>
-                            @foreach (var item in Clientes)
-                            {
-                                   <option value= "@item.ClienteId" > @item.Nombre </option>
-                            }
-                        </InputSelect>
+                    <InputSelect class="form-control col-2" @bind-Value="Ticket.ClienteId">
+                        <option selected>Seleccione un cliente</option>
+                        @foreach (var item in Clientes)
+                        {
+                            <option value="@item.ClienteId"> @item.Nombre </option>
+                        }
+                    </InputSelect>
                 </div>
-                 
+
                 @*SistemaId*@
-               <div class="mb-3">
+                <div class="mb-3">
                     <label class="form-group"> SistemaId </label>
-                        <InputSelect class="form-control col-2" @bind-Value="Ticket.SistemaId">
-                            <option selected>Seleccione un Sistema</option>
-                            @foreach (var item in Sistemas)
-                            {
-                                   <option value= "@item.SistemaId" > @item.Nombre </option>
-                            }
-                        </InputSelect>
+                    <InputSelect class="form-control col-2" @bind-Value="Ticket.SistemaId">
+                        <option selected>Seleccione un Sistema</option>
+                        @foreach (var item in Sistemas)
+                        {
+                            <option value="@item.SistemaId"> @item.Nombre </option>
+                        }
+                    </InputSelect>
                 </div>
 
                 @*PrioridadId*@
@@ -91,14 +91,67 @@
                     </div>
                 </div>
 
-                  @* Fecha *@
-                    <div Class="form-group mt-3">
-                        <label class="row-text"> Dias Compromiso </label>
-                        <div class="input-group">
-                            <input type="date" @bind-value="Ticket.FechaT" />
-                            <ValidationMessage For="@(() => Ticket.FechaT)" />
+                @*Fecha*@
+                <div Class="form-group mt-3">
+                    <label class="row-text"> Dias Compromiso </label>
+                    <div class="input-group">
+                        <input type="date" @bind-value="Ticket.FechaT" />
+                        <ValidationMessage For="@(() => Ticket.FechaT)" />
+                    </div>
+                </div>
+
+                <hr style="width:100%;" />
+                @*Cuerpo del detalle*@
+                <div class=" card-body">
+                    <div class="form-row align-items-center">
+                        <div class="col">
+                            <div class="form-group" style="margin: 5px;">
+
+                                @*Emisor*@
+                                <div class=" mb-3">
+                                    <label class="form-group"> Emisor </label>
+                                    <div class="input-group">
+                                        <InputText class="form-control" @bind-Value="TicketsDetalle.Emisor" placeholder="Coloque un Emisor" />
+                                        <ValidationMessage For="@(() => TicketsDetalle.Emisor)" />
+                                    </div>
+                                </div>
+                                    
+
+                                @*Mensaje*@
+                                <div class=" mb-3">
+                                        <label class="form-group"> Mensaje </label>
+                                    <div class="input-group">
+                                        <InputText class="form-control" @bind-Value="TicketsDetalle.Mensaje" placeholder="Coloque un Mensaje" />
+                                        <ValidationMessage For="@(() => TicketsDetalle.Mensaje)" />
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-success" @onclick="AgregarDetalle"> <i class="oi oi-plus" /> Agregar </button>
+                            </div>
                         </div>
                     </div>
+                    <table class ="table table-bordered table-light">
+
+                        <thead class="thead">
+                            <tr class="table">
+                                <th>Id</th>
+                                <th>Emisor</th>
+                                <th>Mensaje</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var detalle in Ticket.Detalle)
+                            {
+                                <tr>
+                                    <td>@detalle.TicketId</td>
+                                    <td>@detalle.Emisor</td>
+                                    <td>@detalle.Mensaje</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
 
                 @*Botones*@
                 <div class="card-footer d-flex justify-content-center">
@@ -123,6 +176,12 @@
     public List<Sistemas> Sistemas { get; set; } = new List<Sistemas>();
 
     public List<Clientes> Clientes { get; set; } = new List<Clientes>();
+
+    public TicketsDetalle TicketsDetalle { get; set; } = new TicketsDetalle();
+
+    private int detalleId = 0;
+
+
 
     [Parameter]
     public int TicketId { get; set; }
@@ -160,6 +219,7 @@
     public void Nuevo()
     {
         this.Ticket = new Tickets();
+        detalleId = 0;
     }
 
     public void Guardar()
@@ -176,6 +236,7 @@
         var guardo = TicketsBLL.Guardar(this.Ticket);
         if (guardo)
         {
+            detalleId = 0;
             notificationService.ShowNotification(
             titulo: "Exito",
             mensaje: "Guardado correctamente",
@@ -218,4 +279,14 @@
         return TicketsBLL.Validar(Ticket.Descripcion);
 
     }
+
+    private void AgregarDetalle()
+    {
+        detalleId++;
+        this.TicketsDetalle.TicketId = detalleId;
+        this.Ticket.Detalle.Add(this.TicketsDetalle);
+        this.TicketsDetalle = new TicketsDetalle();
+    }
+
+    
 }

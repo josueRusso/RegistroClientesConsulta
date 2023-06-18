@@ -11,7 +11,7 @@ using RegistroClienteConsulta.DAL;
 namespace RegistroClienteConsulta.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230530034800_Inicio")]
+    [Migration("20230618170550_Inicio")]
     partial class Inicio
     {
         /// <inheritdoc />
@@ -119,6 +119,44 @@ namespace RegistroClienteConsulta.Migrations
                     b.HasKey("TicketId");
 
                     b.ToTable("Tickets");
+                });
+
+            modelBuilder.Entity("RegistroClienteConsulta.Model.TicketsDetalle", b =>
+                {
+                    b.Property<int>("TicketsDetalleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Emisor")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Mensaje")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("TicketId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("TicketsDetalleId");
+
+                    b.HasIndex("TicketId");
+
+                    b.ToTable("TicketsDetalle");
+                });
+
+            modelBuilder.Entity("RegistroClienteConsulta.Model.TicketsDetalle", b =>
+                {
+                    b.HasOne("RegistroClienteConsulta.Model.Tickets", null)
+                        .WithMany("Detalle")
+                        .HasForeignKey("TicketId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("RegistroClienteConsulta.Model.Tickets", b =>
+                {
+                    b.Navigation("Detalle");
                 });
 #pragma warning restore 612, 618
         }
