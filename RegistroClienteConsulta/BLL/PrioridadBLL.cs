@@ -20,11 +20,11 @@ namespace RegistroClienteConsulta.BLL
         }
         public bool Existe(int PrioridadId)
         {
-            return _context.Prioridad.Any(s => s.PrioridadId == PrioridadId);
+            return _context.Prioridades.Any(s => s.PrioridadId == PrioridadId);
         }
         private bool Insertar(Prioridades prioridad)
         {
-            _context.Prioridad.Add(prioridad);
+            _context.Prioridades.Add(prioridad);
             int verificar = _context.SaveChanges();
             return verificar > 0;
         }
@@ -44,19 +44,19 @@ namespace RegistroClienteConsulta.BLL
         }
         public bool Eliminar(Prioridades prioridad)
         {
-            _context.Prioridad.Remove(prioridad);
+            _context.Prioridades.Remove(prioridad);
             int verificar = _context.SaveChanges();
             return verificar > 0;    
         }
         public Prioridades? Buscar(int PrioridadId)
         {
-            return _context.Prioridad
+            return _context.Prioridades
                 .AsNoTracking()
                 .FirstOrDefault(s => s.PrioridadId == PrioridadId);
         }
         public List<Prioridades> GetList(Expression<Func<Prioridades, bool >> Criterio)
         {
-            return _context.Prioridad
+            return _context.Prioridades
                 .Where(Criterio)
                 .AsNoTracking()
                 .ToList();
@@ -66,7 +66,7 @@ namespace RegistroClienteConsulta.BLL
             bool confirmar = false;
             try
             {
-                confirmar = _context.Prioridad.Any(e => e.Descripcion == descripcion);
+                confirmar = _context.Prioridades.Any(e => e.Descripcion == descripcion);
             }
             catch (Exception)
             {

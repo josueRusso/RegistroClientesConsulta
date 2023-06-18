@@ -12,7 +12,7 @@ namespace RegistroClienteConsulta.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Cliente",
+                name: "Clientes",
                 columns: table => new
                 {
                     ClienteId = table.Column<int>(type: "INTEGER", nullable: false)
@@ -26,11 +26,11 @@ namespace RegistroClienteConsulta.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Cliente", x => x.ClienteId);
+                    table.PrimaryKey("PK_Clientes", x => x.ClienteId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Prioridad",
+                name: "Prioridades",
                 columns: table => new
                 {
                     PrioridadId = table.Column<int>(type: "INTEGER", nullable: false)
@@ -40,7 +40,7 @@ namespace RegistroClienteConsulta.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Prioridad", x => x.PrioridadId);
+                    table.PrimaryKey("PK_Prioridades", x => x.PrioridadId);
                 });
 
             migrationBuilder.CreateTable(
@@ -80,10 +80,10 @@ namespace RegistroClienteConsulta.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Cliente");
+                name: "Clientes");
 
             migrationBuilder.DropTable(
-                name: "Prioridad");
+                name: "Prioridades");
 
             migrationBuilder.DropTable(
                 name: "Sistemas");

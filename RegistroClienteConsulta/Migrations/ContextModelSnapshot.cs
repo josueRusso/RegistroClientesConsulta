@@ -48,7 +48,7 @@ namespace RegistroClienteConsulta.Migrations
 
                     b.HasKey("ClienteId");
 
-                    b.ToTable("Cliente");
+                    b.ToTable("Clientes");
                 });
 
             modelBuilder.Entity("RegistroClienteConsulta.Model.Prioridades", b =>
@@ -65,7 +65,7 @@ namespace RegistroClienteConsulta.Migrations
 
                     b.HasKey("PrioridadId");
 
-                    b.ToTable("Prioridad");
+                    b.ToTable("Prioridades");
                 });
 
             modelBuilder.Entity("RegistroClienteConsulta.Model.Sistemas", b =>

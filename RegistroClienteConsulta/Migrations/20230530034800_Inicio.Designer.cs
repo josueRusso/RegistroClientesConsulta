@@ -11,7 +11,7 @@ using RegistroClienteConsulta.DAL;
 namespace RegistroClienteConsulta.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230528164728_Inicio")]
+    [Migration("20230530034800_Inicio")]
     partial class Inicio
     {
         /// <inheritdoc />
@@ -51,7 +51,7 @@ namespace RegistroClienteConsulta.Migrations
 
                     b.HasKey("ClienteId");
 
-                    b.ToTable("Cliente");
+                    b.ToTable("Clientes");
                 });
 
             modelBuilder.Entity("RegistroClienteConsulta.Model.Prioridades", b =>
@@ -68,7 +68,7 @@ namespace RegistroClienteConsulta.Migrations
 
                     b.HasKey("PrioridadId");
 
-                    b.ToTable("Prioridad");
+                    b.ToTable("Prioridades");
                 });
 
             modelBuilder.Entity("RegistroClienteConsulta.Model.Sistemas", b =>

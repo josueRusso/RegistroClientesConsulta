@@ -24,12 +24,12 @@ namespace RegistroClienteConsulta.BLL
 
         public bool Existe(int ClienteId)
         {
-            return _context.Cliente.Any(s => s.ClienteId == ClienteId);
+            return _context.Clientes.Any(s => s.ClienteId == ClienteId);
         }
 
         private bool Insertar(Clientes cliente)
         {
-            _context.Cliente.Add(cliente);
+            _context.Clientes.Add(cliente);
             int verificar = _context.SaveChanges();
             return verificar > 0;
         }
@@ -51,21 +51,21 @@ namespace RegistroClienteConsulta.BLL
 
         public bool Eliminar(Clientes cliente)
         {
-            _context.Cliente.Remove(cliente);
+            _context.Clientes.Remove(cliente);
             int verificar = _context.SaveChanges();
             return verificar > 0;
         }
 
         public Clientes? Buscar(int ClienteId)
         {
-            return _context.Cliente
+            return _context.Clientes
                 .AsNoTracking()
                 .FirstOrDefault(s => s.ClienteId == ClienteId);
         }
 
         public List<Clientes> GetList(Expression<Func<Clientes, bool>> Criterio)
         {
-            return _context.Cliente
+            return _context.Clientes
                 .Where(Criterio)
                 .AsNoTracking()
                 .ToList();
@@ -75,14 +75,8 @@ namespace RegistroClienteConsulta.BLL
         {
 
             bool confirmar = false;
-            try
-            {
-                confirmar = _context.Cliente.Any(e => e.Nombre.ToLower() == nombre.ToLower() || e.Rnc == Rnc);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+           
+            confirmar = _context.Clientes.Any(e => e.Nombre.ToLower() == nombre.ToLower() || e.Rnc == Rnc);
             return confirmar;
         }
     }
